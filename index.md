@@ -3,12 +3,15 @@
 Below are the list of project entries I did.
 
 ### Projects
+---
 
-Test
+Entry Conway Game of Life
 
-[![Conway Game of Life](https://upload.wikimedia.org/wikipedia/commons/e/ec/Conways_game_of_life_breeder.png)](https://youtu.be/a_r12GPDj1U "Conway Game of Life")
-[Click here to play!] (https://borbejonry.bitbucket.io/SetryConwayGameOfLife/index.html)
+[![Conway Game of Life](https://upload.wikimedia.org/wikipedia/commons/e/ec/Conways_game_of_life_breeder.png)](https://www.youtube.com/watch?v=a_r12GPDj1U "Conway Game of Life")
 
+[Repository!](https://bitbucket.org/borbejonry/sample-conway-game-of-life) | [Play!](https://borbejonry.bitbucket.io/SetryConwayGameOfLife/index.html)
+
+---
 
 ### Support or Contact
 
