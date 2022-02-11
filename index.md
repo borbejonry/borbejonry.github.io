@@ -14,7 +14,7 @@ Below are the list of project entries I did.
 ---
 ### [Entry - Theseus And Minotaur](https://www.youtube.com/watch?v=ZRMiaXUaNFA "Theseus And Minotaur")
 
-
+[![Theseus And Minotaur](https://yt-embed.herokuapp.com/embed?v=ZRMiaXUaNFA)](https://www.youtube.com/watch?v=ZRMiaXUaNFA "Theseus And Minotaur")
 
 [Repository!](https://bitbucket.org/borbejonry/entrytheseusandminotaur) | [Play!](https://borbejonry.bitbucket.io/website/theseus_and_minotaur/index.html)
 
