@@ -5,6 +5,32 @@ Below are the list of project entries I did.
 ## Projects
 
 ---
+### [Entry - Tetris Multiplayer Online](https://borbejonry.bitbucket.io/website/tetris_network/index.html)
+
+Game mechanics:
+- Everytime you clear a line in the game, you must send a line with 1 empty space to your opponent instantly.
+- Blocks move downwards faster every 30 seconds
+
+Controls:
+- A and D to move the blocks left and right.
+- Q and E rotate block clockwise and counterclockwise.
+- S Soft Drop.
+- Space Hard Drop
+
+Win Condition:
+- Your opponent blocks out.
+
+Lose Condition:
+- Block out: a piece is spawned overlapping at least one block outside the playfield.
+
+Engine: Unity Engine
+Plugin used: 
+- Photon Engine
+- TextMesh Pro
+
+[Play!](https://borbejonry.bitbucket.io/website/tetris_network/index.html)
+
+---
 ### [Entry - Conway Game Of Life](https://www.youtube.com/watch?v=a_r12GPDj1U "Conway Game of Life")
 
 [![Conway Game of Life](https://yt-embed.herokuapp.com/embed?v=a_r12GPDj1U)](https://www.youtube.com/watch?v=a_r12GPDj1U "Conway Game of Life")
