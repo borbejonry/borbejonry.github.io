@@ -8,7 +8,7 @@ Below are the list of project entries I did.
 ### [Entry - Tetris Multiplayer Online](https://borbejonry.bitbucket.io/website/tetris_network/index.html)
 
 Game mechanics:
-- Everytime you clear a line in the game, you must send a line with 1 empty space to your opponent instantly.
+- Everytime you clear a line in the game, a line with 1 empty space will be send to your opponent instantly.
 - Blocks move downwards faster every 30 seconds
 
 Controls:
