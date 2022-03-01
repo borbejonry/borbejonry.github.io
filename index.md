@@ -5,7 +5,7 @@ Below are the list of project entries I did.
 ## Projects
 
 ---
-### [Entry - Tetris Multiplayer Online](https://borbejonry.bitbucket.io/website/tetris_network/index.html)
+### [Tetris Multiplayer Online](https://borbejonry.bitbucket.io/website/tetris_network/index.html)
 
 Game mechanics:
 - Everytime you clear a line in the game, a line with 1 empty space will be send to your opponent instantly.
@@ -31,21 +31,21 @@ Plugin used:
 [Play!](https://borbejonry.bitbucket.io/website/tetris_network/index.html)
 
 ---
-### [Entry - Conway Game Of Life](https://www.youtube.com/watch?v=a_r12GPDj1U "Conway Game of Life")
+### [Conway Game Of Life](https://www.youtube.com/watch?v=a_r12GPDj1U "Conway Game of Life")
 
 [![Conway Game of Life](https://yt-embed.herokuapp.com/embed?v=a_r12GPDj1U)](https://www.youtube.com/watch?v=a_r12GPDj1U "Conway Game of Life")
 
 [Repository!](https://bitbucket.org/borbejonry/sample-conway-game-of-life) | [Play!](https://borbejonry.bitbucket.io/SetryConwayGameOfLife/index.html)
 
 ---
-### [Entry - Theseus And Minotaur](https://www.youtube.com/watch?v=ZRMiaXUaNFA "Theseus And Minotaur")
+### [Theseus And Minotaur](https://www.youtube.com/watch?v=ZRMiaXUaNFA "Theseus And Minotaur")
 
 [![Theseus And Minotaur](https://yt-embed.herokuapp.com/embed?v=ZRMiaXUaNFA)](https://www.youtube.com/watch?v=ZRMiaXUaNFA "Theseus And Minotaur")
 
 [Repository!](https://bitbucket.org/borbejonry/entrytheseusandminotaur) | [Play!](https://borbejonry.bitbucket.io/website/theseus_and_minotaur/index.html)
 
 ---
-### [Entry - WebXR](https://borbejonry.bitbucket.io/website/webXR/index.html?model=default)
+### [WebXR](https://borbejonry.bitbucket.io/website/webXR/index.html?model=default)
 
 Use mobile device and try the AR
 
