@@ -7,7 +7,7 @@ Below are the list of project entries I did.
 ### [Pang Game](https://borbejonry.bitbucket.io/PangEntry_WebGL/index.html)
 - Architecture designed with AMVCC (Application-Model-View-Controller-Components) pattern.
 
-[Play!](https://borbejonry.bitbucket.io/PangEntry_WebGL/index.html)
+[Repository!](https://bitbucket.org/borbejonry/panggame) | [Play!](https://borbejonry.bitbucket.io/PangEntry_WebGL/index.html)
 
 ---
 ### [Tetris Multiplayer Online](https://borbejonry.bitbucket.io/website/tetris_network/index.html)
