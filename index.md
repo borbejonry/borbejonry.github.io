@@ -4,6 +4,13 @@ Below are the list of project entries I did.
 
 ## Projects
 ---
+### [Board Game](https://borbejonry.bitbucket.io/BoardGame01/index.html)
+- Architecture designed with AMVCC (Application-Model-View-Controller-Components) pattern.
+- Using Pathfinding and Grids.
+
+[Play!](https://borbejonry.bitbucket.io/BoardGame01/index.html)
+
+---
 ### [Pang Game](https://borbejonry.bitbucket.io/PangEntry_WebGL/index.html)
 - Architecture designed with AMVCC (Application-Model-View-Controller-Components) pattern.
 
