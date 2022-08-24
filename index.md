@@ -64,6 +64,10 @@ Use mobile device and try the AR
 [AR Oilcan!](https://borbejonry.bitbucket.io/website/webXR/index.html?model=default) | 
 [AR Pencil!](https://borbejonry.bitbucket.io/website/webXR/index.html?model=pencil)
 
+---
+Spark AR Portfolios
+https://www.facebook.com/sparkarhub/portfolios/fb/DemonGodSetry/
+---
 ## Support or Contact
 
 Send me an email. "borbejonry@gmail.com"
