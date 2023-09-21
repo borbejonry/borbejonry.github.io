@@ -1,7 +1,13 @@
 ## Welcome to my pages
 
-Below are the list of project entries I did.
+## Other Portfolio References
+- [Technical Artist (Tools)](https://jonryborbe.notion.site/Technical-Artist-0156927e34f946e0a76dcf1b6f79fa46)
+- [Indie Game Hosting Market Place](https://borbejonry.itch.io/)
+- [Linkedin](https://www.linkedin.com/in/jonryborbe/)
+- [Game Jams](https://globalgamejam.org/users/setry-chirazaki)
+- [Unity Badges](https://learn.unity.com/u/5ace0d7a880c640019bdb2de)
 
+---
 ## Projects
 ---
 ### [Board Game](https://borbejonry.bitbucket.io/BoardGame01/index.html)
