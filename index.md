@@ -1,12 +1,12 @@
 ## Welcome to my pages
 
 ## Other Portfolio References
+- [Demo and Videos](https://youtube.com/playlist?list=PLD5ouE-Qrt8AKdBgXADu0QiDfF3TA-NUv&si=6ExeTviSyfcteaLK)
 - [Technical Artist (Tools)](https://jonryborbe.notion.site/Technical-Artist-0156927e34f946e0a76dcf1b6f79fa46)
 - [Indie Game Hosting Market Place](https://borbejonry.itch.io/)
 - [Linkedin](https://www.linkedin.com/in/jonryborbe/)
 - [Game Jams](https://globalgamejam.org/users/setry-chirazaki)
 - [Unity Badges](https://learn.unity.com/u/5ace0d7a880c640019bdb2de)
-- [Demo and Videos](https://youtube.com/playlist?list=PLD5ouE-Qrt8AKdBgXADu0QiDfF3TA-NUv&si=6ExeTviSyfcteaLK)
 - [Paid/Donation Videos](https://youtube.com/playlist?list=PLD5ouE-Qrt8BYu-rPKMVQVnYER3X-jvBW&si=nq_9fZSF-lAuilKC)
 
 ---
