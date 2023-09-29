@@ -6,6 +6,8 @@
 - [Linkedin](https://www.linkedin.com/in/jonryborbe/)
 - [Game Jams](https://globalgamejam.org/users/setry-chirazaki)
 - [Unity Badges](https://learn.unity.com/u/5ace0d7a880c640019bdb2de)
+- [Demo and Videos](https://youtube.com/playlist?list=PLD5ouE-Qrt8AKdBgXADu0QiDfF3TA-NUv&si=6ExeTviSyfcteaLK)
+- [Paid/Donation Videos](https://youtube.com/playlist?list=PLD5ouE-Qrt8BYu-rPKMVQVnYER3X-jvBW&si=nq_9fZSF-lAuilKC)
 
 ---
 ## Projects
