@@ -1,5 +1,5 @@
 ## Welcome to my pages
-
+- I can do the role of a Developer, Tech Art, and Programmer. (Just choose, would be great :D)
 ---
 ## Published Games
 ### [FINISHLINE (Steam App)](https://store.steampowered.com/app/2916040/FINISHLINE)
