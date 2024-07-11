@@ -27,13 +27,13 @@
 
 [Play!](https://borbejonry.bitbucket.io/BoardGame01/index.html)
 
----
+
 ### [Pang Game](https://borbejonry.bitbucket.io/PangEntry_WebGL/index.html)
 - Architecture designed with AMVCC (Application-Model-View-Controller-Components) pattern.
 
 [Repository!](https://bitbucket.org/borbejonry/panggame) | [Play!](https://borbejonry.bitbucket.io/PangEntry_WebGL/index.html)
 
----
+
 ### [Tetris Multiplayer Online](https://borbejonry.bitbucket.io/website/tetris_network/index.html)
 
 Game mechanics:
@@ -59,21 +59,21 @@ Plugin used:
 
 [Play!](https://borbejonry.bitbucket.io/website/tetris_network/index.html)
 
----
+
 ### [Conway Game Of Life](https://www.youtube.com/watch?v=a_r12GPDj1U "Conway Game of Life")
 
 [![Conway Game of Life](https://yt-embed.herokuapp.com/embed?v=a_r12GPDj1U)](https://www.youtube.com/watch?v=a_r12GPDj1U "Conway Game of Life")
 
 [Repository!](https://bitbucket.org/borbejonry/sample-conway-game-of-life) | [Play!](https://borbejonry.bitbucket.io/SetryConwayGameOfLife/index.html)
 
----
+
 ### [Theseus And Minotaur](https://www.youtube.com/watch?v=ZRMiaXUaNFA "Theseus And Minotaur")
 
 [![Theseus And Minotaur](https://yt-embed.herokuapp.com/embed?v=ZRMiaXUaNFA)](https://www.youtube.com/watch?v=ZRMiaXUaNFA "Theseus And Minotaur")
 
 [Repository!](https://bitbucket.org/borbejonry/entrytheseusandminotaur) | [Play!](https://borbejonry.bitbucket.io/website/theseus_and_minotaur/index.html)
 
----
+
 ### [WebXR](https://borbejonry.bitbucket.io/website/webXR/index.html?model=default)
 
 Use mobile device and try the AR
@@ -81,7 +81,7 @@ Use mobile device and try the AR
 [AR Oilcan!](https://borbejonry.bitbucket.io/website/webXR/index.html?model=default) | 
 [AR Pencil!](https://borbejonry.bitbucket.io/website/webXR/index.html?model=pencil)
 
----
+
 Spark AR Portfolios
 https://www.facebook.com/sparkarhub/portfolios/fb/DemonGodSetry/
 ---
