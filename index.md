@@ -1,5 +1,11 @@
 ## Welcome to my pages
 
+---
+## Published Games
+---
+### [FINISHLINE](https://store.steampowered.com/app/2916040/FINISHLINE)
+- A driving simulator that helps you reconsider your life choices, in which you need to evade obstacles and stay on track in a snowy environment. Aim to achieve the farthest distance possible. Note that your brake doesn't work; once you start the engine, your vehicle will always move forward. 
+
 ## Other Portfolio References
 - [Demo and Videos](https://youtube.com/playlist?list=PLD5ouE-Qrt8AKdBgXADu0QiDfF3TA-NUv&si=6ExeTviSyfcteaLK)
 - [Technical Artist (Tools)](https://jonryborbe.notion.site/Technical-Artist-0156927e34f946e0a76dcf1b6f79fa46)
@@ -9,11 +15,6 @@
 - [Unity Badges](https://learn.unity.com/u/5ace0d7a880c640019bdb2de)
 - [Paid/Donation Videos](https://youtube.com/playlist?list=PLD5ouE-Qrt8BYu-rPKMVQVnYER3X-jvBW&si=nq_9fZSF-lAuilKC)
 
----
-## Published Games
----
-### [FINISHLINE](https://store.steampowered.com/app/2916040/FINISHLINE)
-- A driving simulator that helps you reconsider your life choices, in which you need to evade obstacles and stay on track in a snowy environment. Aim to achieve the farthest distance possible. Note that your brake doesn't work; once you start the engine, your vehicle will always move forward. 
 
 ---
 ## Projects
