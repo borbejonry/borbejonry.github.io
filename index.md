@@ -1,6 +1,6 @@
 ## Welcome to my pages
 ---
-- I can do the role of a Developer, Tech Art, and Programmer. (Just choose, would be great :D)
+- I'm open for freelance, which I can do the role of a Developer, Tech Art, and Programmer. (Just choose one, would be great :D)
   
 ---
 ## Published Games
