@@ -16,7 +16,7 @@
 
 
 ---
-## Projects
+## Exam Projects
 ---
 ### [Board Game](https://borbejonry.bitbucket.io/BoardGame01/index.html)
 - Architecture designed with AMVCC (Application-Model-View-Controller-Components) pattern.
