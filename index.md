@@ -2,7 +2,6 @@
 
 ---
 ## Published Games
----
 ### [FINISHLINE (Steam App)](https://store.steampowered.com/app/2916040/FINISHLINE)
 - A driving simulator that helps you reconsider your life choices, in which you need to evade obstacles and stay on track in a snowy environment. Aim to achieve the farthest distance possible. Note that your brake doesn't work; once you start the engine, your vehicle will always move forward. 
 
