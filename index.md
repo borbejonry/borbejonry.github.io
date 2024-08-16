@@ -3,6 +3,15 @@
 - I'm open for freelance work as a Developer, Tech Artist, or Programmer. (Just choose one, it would be great :D)
 
 ---
+I'm also selling health and wealthness products. If you are intertested to have your own franchising business, we have a package for you.
+
+Shop bundles of coffee but better OR best BARLEY in the Earth (Available almost to all countries) :heart:
+https://shop.jcpremiere.com/JHStore
+
+Shop bundles of frozen food (Available to Philippines Only) :heart:
+https://shop.siomaiking.ph/JHStore
+
+---
 ## Published Games
 ![FINISHLINE](/SetryProduction/Finishline01.jpg)
 ### [FINISHLINE (Steam App)](https://store.steampowered.com/app/2916040/FINISHLINE)
