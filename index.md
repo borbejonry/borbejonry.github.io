@@ -98,6 +98,13 @@ Use a mobile device to try the AR features:
 [AR Oilcan](https://borbejonry.bitbucket.io/website/webXR/index.html?model=default) | [AR Pencil](https://borbejonry.bitbucket.io/website/webXR/index.html?model=pencil)
 
 ---
+## AR Links
+[Capitol Commons AR Skyline](https://www.facebook.com/VoblingInt/videos/2017090161670919)
+[Full Body AR](https://www.facebook.com/watch/?v=339886613356212)
+[Air France AR](https://www.facebook.com/VoblingInt/videos/2386659784920970)
+[Redesign AR](https://www.facebook.com/watch/?v=1446423272356092)
+
+---
 ## Spark AR Portfolios
 [Facebook Spark AR Hub](https://www.facebook.com/sparkarhub/portfolios/fb/DemonGodSetry/)
 
