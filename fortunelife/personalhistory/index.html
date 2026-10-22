@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Personal History Form (AF-001)</title>
+<style>
+:root{--bg:#f4f6f9;--card:#fff;--ink:#1d2430;--muted:#5d6878;--line:#d7dde6;--brand:#0b5cad;--brand-d:#084680;--warn:#8a5a00;--warn-bg:#fff6e0;--err:#9b1c1c;--err-bg:#fde8e8;--ok:#14633a;--ok-bg:#e4f6ec}
+*{box-sizing:border-box}
+body{margin:0;font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+header{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);padding:10px 16px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+header h1{margin:0 0 8px;font-size:17px}
+header h1 small{font-weight:400;color:var(--muted);margin-left:6px}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+button,.btn{font:inherit;border:1px solid var(--brand);background:var(--brand);color:#fff;border-radius:6px;padding:7px 12px;cursor:pointer}
+button:hover,.btn:hover{background:var(--brand-d)}
+button.ghost,.btn.ghost{background:#fff;color:var(--brand)}
+button.ghost:hover,.btn.ghost:hover{background:#eaf2fb}
+button.danger{background:#fff;color:var(--err);border-color:#e0a8a8}
+button.danger:hover{background:var(--err-bg)}
+button.small{padding:3px 8px;font-size:12px}
+button:disabled{opacity:.5;cursor:wait}
+.opts{display:flex;gap:14px;align-items:center;color:var(--muted);font-size:13px;flex-wrap:wrap}
+.opts select{font:inherit;padding:2px 4px}
+main{max-width:1060px;margin:0 auto;padding:14px 12px 60px}
+#drop{border:2px dashed #9db6d3;background:#fafcff;border-radius:10px;padding:16px;text-align:center;color:var(--muted);margin-bottom:12px;cursor:pointer}
+#drop.over{background:#e7f1fc;border-color:var(--brand)}
+#drop b{color:var(--ink)}
+#msgs .m{border-radius:8px;padding:9px 12px;margin-bottom:8px;border:1px solid}
+#msgs .m.err{background:var(--err-bg);border-color:#f0b4b4;color:var(--err)}
+#msgs .m.warn{background:var(--warn-bg);border-color:#f0d9a0;color:var(--warn)}
+#msgs .m.ok{background:var(--ok-bg);border-color:#a8dcc0;color:var(--ok)}
+#msgs ul{margin:4px 0 0 18px;padding:0}
+section.card{background:var(--card);border:1px solid var(--line);border-radius:10px;margin-bottom:14px;overflow:hidden}
+section.card>h2{margin:0;font-size:14px;letter-spacing:.3px;text-transform:uppercase;background:#1d2430;color:#fff;padding:8px 12px}
+section.card>h2 span{font-weight:400;opacity:.7;text-transform:none;margin-left:6px}
+.body{padding:12px}
+.grid{display:grid;gap:10px;grid-template-columns:repeat(12,1fr);margin-bottom:10px}
+.grid>*{grid-column:span 12}
+@media(min-width:760px){.s2{grid-column:span 2}.s3{grid-column:span 3}.s4{grid-column:span 4}.s5{grid-column:span 5}.s6{grid-column:span 6}.s8{grid-column:span 8}.s12{grid-column:span 12}}
+label.f{display:flex;flex-direction:column;gap:3px}
+label.f>span{font-size:12px;color:var(--muted)}
+input[type=text],input[type=number],input[type=date],select,textarea{font:inherit;width:100%;padding:6px 8px;border:1px solid #b9c3d1;border-radius:6px;background:#fff;color:var(--ink)}
+input:focus,select:focus,textarea:focus{outline:2px solid #9cc4ef;border-color:var(--brand)}
+textarea{resize:vertical}
+.checks{display:flex;flex-wrap:wrap;gap:6px 16px;margin-bottom:10px;align-items:center}
+.checks>b{font-size:12px;color:var(--muted);font-weight:600;min-width:120px}
+label.c{display:inline-flex;gap:6px;align-items:center;cursor:pointer}
+label.c input{width:16px;height:16px}
+h3{font-size:13px;margin:12px 0 6px;color:var(--brand-d)}
+.tw{overflow-x:auto;margin-bottom:8px}
+table{border-collapse:collapse;width:100%;min-width:640px}
+th{font-size:12px;color:var(--muted);text-align:left;font-weight:600;padding:4px}
+td{padding:3px}
+td.rn{white-space:nowrap;color:var(--muted);font-size:12px;padding-right:6px}
+.hint{color:var(--muted);font-size:12px;margin:2px 0 8px}
+.photo{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.photo img{width:96px;height:96px;object-fit:contain;border:1px solid var(--line);background:#eef3f8;border-radius:6px}
+.photo .ph{width:96px;height:96px;border:1px dashed #9db6d3;border-radius:6px;display:grid;place-items:center;color:var(--muted);font-size:12px;text-align:center}
+.sigimg{max-height:34px;max-width:120px;border:1px solid var(--line);vertical-align:middle;background:#fff}
+#modal{position:fixed;inset:0;background:rgba(10,18,30,.72);z-index:50;display:none;flex-direction:column;padding:14px}
+#modal.show{display:flex}
+#modal .top{display:flex;gap:8px;align-items:center;color:#fff;margin-bottom:8px;flex-wrap:wrap}
+#modal .top b{flex:1}
+#modal iframe{flex:1;border:0;background:#fff;border-radius:8px}
+footer{max-width:1060px;margin:0 auto;padding:0 12px 30px;color:var(--muted);font-size:12px}
+</style>
+<style>
+header.top{position:static;box-shadow:none;background:#fff;border-bottom:1px solid var(--line);padding:16px 12px}
+header.top .in{max-width:1060px;margin:0 auto}
+header.top h1{margin:0 0 4px;font-size:20px}
+header.top p{margin:4px 0;color:var(--muted)}
+.priv{background:#eef5fd;border:1px solid #c6dcf5;border-radius:8px;padding:8px 12px;margin-top:10px;font-size:13px;color:#274a73}
+#submitCard .body{display:flex;flex-direction:column;gap:12px}
+#submitCard .actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+button.big{padding:11px 22px;font-size:16px;font-weight:600}
+#consentBox{display:flex;gap:10px;align-items:flex-start;background:#fafbfd;border:1px solid var(--line);border-radius:8px;padding:10px 12px;cursor:pointer}
+#consentBox input{margin-top:3px;width:18px;height:18px;flex:none}
+#success{display:none;text-align:center;padding:26px 16px}
+#success h2{margin:0 0 6px;color:var(--ok)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <h1>Personal History Form (AF-001)</h1>
+  <p>Please fill in every box that applies to you. Write <b>NONE</b>, <b>NO</b> or <b>N.A.</b> for questions that do not apply.</p>
+  <p>Your answers are saved on this device while you work, so you can close the page and come back. When you are done, tick the consent box at the bottom and press <b>Send</b>.</p>
+  <div class="priv">This form collects personal information (for example your TIN, SSS number and health details). It is sent only to your recruiter. It is not stored on this website.</div>
+</div></header>
+<main>
+  <div id="msgs"></div>
+  <div id="form"></div>
+
+  <section class="card" id="submitCard"><h2>Send your form</h2><div class="body">
+    <label id="consentBox"><input type="checkbox" id="consent"><span id="consentText">I confirm that my answers are true and correct. I agree that my personal information, including sensitive personal information such as my TIN, SSS number and health details, may be collected and processed for my application, in line with the Data Privacy Act of 2012 (RA 10173).</span></label>
+    <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" id="hp" tabindex="-1" autocomplete="off"></label></div>
+    <div class="actions">
+      <button id="btnSend" class="big">Send my form</button>
+      <button id="btnCopy" class="ghost" title="Save a copy of your answers as a file">Download a copy</button>
+      <button id="btnClear" class="danger">Clear all input</button>
+    </div>
+    <div class="hint">Required: last name, first name, a mobile number or email address, and the consent box.</div>
+  </div></section>
+
+  <section class="card" id="success"><h2>Thank you, your form was sent.</h2><p id="successText">Your recruiter has received it.</p><button id="btnAgain" class="ghost">Fill in another form</button></section>
+</main>
+<footer>Your answers stay in this browser until you send the form or press "Clear all input".</footer>
+
+<script>
+/* =====================================================================
+ *  CUSTOMER FORM  --  sends the answers straight to the owner's inbox
+ *  ---------------------------------------------------------------------
+ *  SETUP (5 minutes, once):
+ *   1. Go to https://web3forms.com , enter the inbox that should receive the forms,
+ *      and copy the Access Key they email you.
+ *   2. Paste the key into CONFIG.accessKey below.
+ *   3. Upload this file to GitHub Pages (name it index.html).
+ *  The inbox address is NOT in this file; it is tied to the access key on web3forms.com.
+ *  The access key is meant to be public (it can only send mail to your inbox).
+ * ===================================================================== */
+const CONFIG = {
+  accessKey:  'YOUR_WEB3FORMS_ACCESS_KEY',
+  endpoint:   'https://api.web3forms.com/submit',
+  subject:    'AF-001 Personal History Form',
+  fromName:   'AF-001 customer form',
+  storageKey: 'af001_customer_draft_v1',
+  clearAfterSend: true,      // wipe the saved answers from the customer's browser after a successful send
+  cooldownSeconds: 30,       // blocks double sends
+  maxJsonChars: 450000       // stop and ask for a smaller photo above this size
+};
+
+/* ===================== data model ===================== */
+const ITEM = {
+  vehicle:     () => ({ make:'', model:'', plate_number:'' }),
+  academic:    () => ({ level:'', school_name:'', years_attended_from:'', years_attended_to:'', degree_obtained:'', graduated:'', honors_awards:'' }),
+  training:    () => ({ topic:'', date:'', venue:'' }),
+  employment:  () => ({ company_address:'', period_from:'', period_to:'', position:'', salary:'', immediate_supervisor:'', contact_number:'', reason_for_leaving:'' }),
+  affiliation: () => ({ organization_name:'', inclusive_dates:'', position:'' }),
+  child:       () => ({ name:'', age:0, civil_status:'', occupation_or_level:'', employer_or_school:'' }),
+  reference:   () => ({ name:'', position:'', company_or_address:'', telephone_or_mobile:'' }),
+  insurance:   () => ({ type_and_amount_of_coverage:'', insurance_company:'', policy_status:'' }),
+  signature:   () => ({ printed_name:'', image:'' })
+};
+const P = 'applicant.';
+const ARR = {   // array path -> [row factory, rows that fit on the PDF]
+  [P+'personal_information.vehicle_details']:        ['vehicle', 2],
+  [P+'academic_background']:                         ['academic', 4],
+  [P+'pertinent_trainings_and_seminars']:            ['training', 3],
+  [P+'previous_insurance_company_or_employment']:    ['employment', 4],
+  [P+'affiliations_and_associations']:               ['affiliation', 3],
+  [P+'family_data.children']:                        ['child', 4],
+  [P+'references']:                                  ['reference', 3],
+  [P+'insurance_ownership']:                         ['insurance', 3],
+  [P+'signatures']:                                  ['signature', 3]
+};
+/* keys that are new (not in the original sample) or may be left out of a JSON file without complaint */
+const OPTIONAL = ['form_type','form_version', P+'photo', P+'career_plans', P+'signatures', P+'application_date', P+'cop'];
+const isOptional = p => OPTIONAL.some(o => p === o || p.startsWith(o + '.') || p.startsWith(o + '['));
+
+function blank() {
+  const rep = (f, n) => Array.from({ length:n }, f);
+  return {
+    form_type:'', form_version:'',
+    applicant:{
+      personal_information:{
+        market_segment:{ regular:false, pvt_ssi:false, govt_ssi:false, group:false },
+        last_name:'', first_name:'', middle_name:'', nickname:'', alias:'', gender:'', age:0, date_of_birth:'', place_of_birth:'',
+        religion:'', nationality:'', civil_status:'', tin:'', sss_number:'',
+        current_residence:{ owned:false, rented:false, with_relatives:false, employers:false, mortgaged:false },
+        vehicle_ownership:{ owns_vehicle:false, car:false, company_vehicle:false, van:false, mortgaged:false, motorcycle:false, none:false, other:false, no_of_vehicles:0 },
+        vehicle_details: rep(ITEM.vehicle,1),
+        additional_information:''
+      },
+      real_property_ownership:{
+        residential:{ lot:false, house:false, house_and_lot:false, condo_unit:false, townhouse:false, other:false, addresses:'' },
+        commercial:{ lot:false, office_building:false, commercial_space:false, addresses:'' },
+        industrial:{ factory:false, warehouse:false, plant:false, other:false, addresses:'' },
+        agricultural:{ riceland:false, farmland:false, estate:false, other:false, addresses:'' }
+      },
+      contact_information:{
+        present_home_address:'', previous_address:'', permanent_home_or_provincial_address:'', office_address:'',
+        mobile_number:'', email_address:'', home_telephone:'', office_telephone:'', fax_number:'',
+        languages_spoken_and_written:'', recruited_by_name:'', agency_branch_or_general_agency_manager:'', relatives_in_fortune_life:'',
+        clearances:{ nbi_clearance:false, police_clearance:false },
+        proof_of_billing:'',
+        present_home_address_boolean:false, previous_address_boolean:false, permanent_home_or_provincial_address_boolean:false, office_address_boolean:false
+      },
+      academic_background: rep(ITEM.academic,4),
+      pertinent_trainings_and_seminars: rep(ITEM.training,1),
+      previous_insurance_company_or_employment: rep(ITEM.employment,1),
+      affiliations_and_associations: rep(ITEM.affiliation,1),
+      physical_and_medical_data:{
+        height:'', weight:'', blood_type:'', allergies:'', hmo_coverage:'',
+        diseases:{ diabetes:false, bronchial_asthma:false, kidney_disease:false, heart_ailment:false, hypertension:false, peptic_ulcer:false, others:false, others_specify:'' },
+        surgical_operations:'', attending_physician_name_and_address:''
+      },
+      family_data:{
+        father:{ name:'', age:0, occupation:'' }, mother:{ name:'', age:0, occupation:'' }, spouse:{ name:'', age:0, occupation:'' },
+        spouse_employer_and_address:'', children: rep(ITEM.child,1)
+      },
+      references: rep(ITEM.reference,3),
+      insurance_ownership: rep(ITEM.insurance,1),
+      /* --- new optional keys: only written to the JSON when they hold something --- */
+      photo:'',
+      career_plans:'',
+      signatures: rep(ITEM.signature,3),
+      application_date:'',
+      cop:{ recruit_name:'', issued_date:'', place:'', signed_branch_manager:'', conforme_applicant:'', agency_manager:'', branch_manager:'' }
+    }
+  };
+}
+
+let S = blank();          // the current form state
+let tplBytes = null;      // optional user-chosen blank PDF
+let lastPdf = null;       // {url, name} of the preview
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]));
+const getPath = (o, p) => p.split('.').reduce((a, k) => a == null ? undefined : a[k], o);
+function setPath(o, p, v) { const ks = p.split('.'); let a = o; for (let i = 0; i < ks.length - 1; i++) a = a[ks[i]]; a[ks[ks.length - 1]] = v; }
+
+/* ---- merge a loaded JSON into the blank template: same keys, same order, missing keys reported ---- */
+function merge(tpl, src, path, rep) {
+  if (Array.isArray(tpl)) {
+    if (!Array.isArray(src)) { if (!isOptional(path)) rep.missing.push(path); return tpl; }
+    const spec = ARR[path];
+    let out = src.map((el, i) => spec ? merge(ITEM[spec[0]](), el, path + '[' + i + ']', rep) : el);
+    if (path === P + 'academic_background' || path === P + 'signatures') while (out.length < spec[1]) out.push(ITEM[spec[0]]());
+    return out;
+  }
+  if (tpl && typeof tpl === 'object') {
+    if (!src || typeof src !== 'object' || Array.isArray(src)) { if (!isOptional(path)) rep.missing.push(path); return tpl; }
+    const out = {};
+    for (const k of Object.keys(tpl)) {
+      const p = path ? path + '.' + k : k;
+      if (k in src) out[k] = merge(tpl[k], src[k], p, rep);
+      else { if (!isOptional(p)) rep.missing.push(p); out[k] = tpl[k]; }
+    }
+    for (const k of Object.keys(src)) if (!(k in tpl)) { out[k] = src[k]; rep.extra.push((path ? path + '.' : '') + k); }
+    return out;
+  }
+  if (src === null || src === undefined) return tpl;
+  if (typeof tpl === 'number')  { if (typeof src === 'number') return src; const n = Number(src); return isNaN(n) ? 0 : n; }
+  if (typeof tpl === 'boolean') return typeof src === 'boolean' ? src : (src === true || String(src).toLowerCase() === 'true');
+  if (typeof tpl === 'string')  return typeof src === 'string' ? src : String(src);
+  return src;
+}
+
+function isEmptyDeep(v) {
+  if (v == null) return true;
+  if (typeof v === 'string') return v.trim() === '';
+  if (typeof v === 'number') return v === 0;
+  if (typeof v === 'boolean') return v === false;
+  if (Array.isArray(v)) return v.every(isEmptyDeep);
+  return Object.values(v).every(isEmptyDeep);
+}
+function exportObj() {
+  const o = JSON.parse(JSON.stringify(S));
+  for (const k of ['photo','career_plans','signatures','application_date','cop']) if (isEmptyDeep(o.applicant[k])) delete o.applicant[k];
+  return o;
+}
+
+/* ===================== messages ===================== */
+function msg(kind, html, list) {
+  const d = document.createElement('div'); d.className = 'm ' + kind;
+  d.innerHTML = html + (list && list.length ? '<ul>' + list.slice(0, 25).map(x => '<li>' + esc(x) + '</li>').join('') + (list.length > 25 ? '<li>... and ' + (list.length - 25) + ' more</li>' : '') + '</ul>' : '');
+  $('#msgs').appendChild(d);
+  if (kind === 'ok') setTimeout(() => d.remove(), 9000);
+  return d;
+}
+const clearMsgs = () => { $('#msgs').innerHTML = ''; };
+
+/* ===================== form UI ===================== */
+function inp(path, label, o = {}) {
+  const v = getPath(S, path), t = o.type || 'text';
+  const val = t === 'number' ? (v ? v : '') : esc(v);
+  return `<label class="f ${o.cls || ''}"><span>${label}</span><input type="${t}" data-path="${path}" data-t="${t}" value="${val}"${t === 'number' ? ' min="0" step="1"' : ''}${o.ph ? ` placeholder="${esc(o.ph)}"` : ''}${o.list ? ` list="${o.list}"` : ''}></label>`;
+}
+const chk = (path, label) => `<label class="c"><input type="checkbox" data-path="${path}"${getPath(S, path) ? ' checked' : ''}><span>${label}</span></label>`;
+function area(path, label, rows, cls) {
+  return `<label class="f ${cls || ''}"><span>${label}</span><textarea rows="${rows || 3}" data-path="${path}">${esc(getPath(S, path))}</textarea></label>`;
+}
+function checks(title, base, list) {
+  return `<div class="checks"><b>${title}</b>${list.map(([k, l]) => chk(base + '.' + k, l)).join('')}</div>`;
+}
+function table(path, cols, o = {}) {
+  const arr = getPath(S, path) || [], spec = ARR[path], max = spec[1], fixed = o.fixed;
+  let h = `<div class="tw"><table><thead><tr><th></th>${cols.map(c => `<th style="${c.w ? 'min-width:' + c.w + 'px' : ''}">${c.label}</th>`).join('')}<th></th></tr></thead><tbody>`;
+  arr.forEach((row, i) => {
+    h += `<tr><td class="rn">${o.rowLabel ? o.rowLabel(i) : (o.first + i)}${i >= max ? ' <span title="Does not fit on the PDF" style="color:#b00">!</span>' : ''}</td>`;
+    for (const c of cols) {
+      const p = `${path}.${i}.${c.k}`, v = row[c.k];
+      if (c.sel) h += `<td><select data-path="${p}">${c.sel.map(x => `<option${x === v ? ' selected' : ''}>${x}</option>`).join('')}</select></td>`;
+      else if (c.type === 'number') h += `<td><input type="number" min="0" data-path="${p}" data-t="number" value="${v ? v : ''}"></td>`;
+      else h += `<td><input type="${c.type || 'text'}" data-path="${p}" value="${esc(v)}"${c.ph ? ` placeholder="${c.ph}"` : ''}></td>`;
+    }
+    h += `<td>${fixed ? '' : `<button class="ghost small danger" data-del="${path}|${i}" title="Remove row">&times;</button>`}</td></tr>`;
+  });
+  h += '</tbody></table></div>';
+  if (!fixed) h += `<button class="ghost small" data-add="${path}">+ Add row</button> <span class="hint">${arr.length} of ${max} rows fit on the form</span>`;
+  return h;
+}
+const card = (title, sub, body) => `<section class="card"><h2>${title}${sub ? `<span>${sub}</span>` : ''}</h2><div class="body">${body}</div></section>`;
+
+function renderAll() {
+  const pi = P + 'personal_information.', rp = P + 'real_property_ownership.', ci = P + 'contact_information.', md = P + 'physical_and_medical_data.', fd = P + 'family_data.';
+  const A = S.applicant;
+  const photo = `<div class="photo">${A.photo ? `<img src="${A.photo}" alt="photo">` : '<div class="ph">no photo</div>'}
+    <div><label class="btn ghost small" style="cursor:pointer">Choose 2x2 photo<input type="file" id="filePhoto" accept="image/*" hidden></label>
+    ${A.photo ? ' <button class="ghost small danger" id="btnPhotoDel">Remove</button>' : ''}<div class="hint">Placed in the photo box of the PDF (blue background).</div></div></div>`;
+  let h = '<datalist id="dlGender"><option>Male</option><option>Female</option></datalist><datalist id="dlCivil"><option>Single</option><option>Married</option><option>Widowed</option><option>Separated</option></datalist>';
+
+  h += card('Items 1-20', 'Personal information',
+    checks('1. Market segment', pi + 'market_segment', [['regular', 'Regular'], ['pvt_ssi', 'Pvt. SSI'], ['govt_ssi', 'Govt. SSI'], ['group', 'Group']]) +
+    '<h3>2. Photo</h3>' + photo + '<h3>3-14</h3><div class="grid">' +
+    inp(pi + 'last_name', '3. Last name', { cls: 's4' }) + inp(pi + 'first_name', 'First name', { cls: 's4' }) + inp(pi + 'middle_name', 'Middle name', { cls: 's4' }) +
+    inp(pi + 'nickname', '4. Nickname', { cls: 's4' }) + inp(pi + 'alias', '5. Alias', { cls: 's4' }) + inp(pi + 'gender', '6. Gender', { cls: 's2', list: 'dlGender' }) + inp(pi + 'age', '7. Age', { cls: 's2', type: 'number' }) +
+    inp(pi + 'date_of_birth', '8. Date of birth', { cls: 's3', type: 'date' }) + inp(pi + 'place_of_birth', '9. Place of birth', { cls: 's5' }) + inp(pi + 'religion', '10. Religion', { cls: 's4' }) +
+    inp(pi + 'nationality', '11. Nationality', { cls: 's4' }) + inp(pi + 'civil_status', '12. Civil status', { cls: 's4', list: 'dlCivil' }) + inp(pi + 'tin', '13. TIN', { cls: 's4' }) +
+    inp(pi + 'sss_number', '14. SSS number', { cls: 's4' }) + '</div>' +
+    checks('15. Current residence', pi + 'current_residence', [['owned', 'Owned'], ['rented', 'Rented'], ['with_relatives', 'With relatives'], ['employers', "Employer's"], ['mortgaged', 'Mortgaged']]) +
+    '<h3>16-19. Vehicles</h3><div class="grid">' + inp(pi + 'vehicle_ownership.no_of_vehicles', '16. No. of vehicle/s', { cls: 's3', type: 'number' }) + '</div>' +
+    checks('Ownership', pi + 'vehicle_ownership', [['owns_vehicle', 'Own'], ['company_vehicle', 'Company'], ['mortgaged', 'Mortgaged'], ['none', 'None']]) +
+    checks('Type', pi + 'vehicle_ownership', [['car', 'Car'], ['van', 'Van'], ['motorcycle', 'Motorcycle'], ['other', 'Other']]) +
+    table(P + 'personal_information.vehicle_details', [{ k: 'make', label: '17. Make' }, { k: 'model', label: '18. Model' }, { k: 'plate_number', label: '19. Plate no.' }], { rowLabel: i => 'Vehicle ' + (i + 1) }) +
+    '<div class="grid">' + inp(pi + 'additional_information', '20. Additional information', { cls: 's12' }) + '</div>');
+
+  const prop = (key, title, items) => `<h3>${title}</h3>` + checks('', rp + key, items) + `<div class="grid">${key === 'residential' ? area(rp + key + '.addresses', 'Address/es', 2, 's12') : inp(rp + key + '.addresses', 'Address/es', { cls: 's12' })}</div>`;
+  h += card('Item 21', 'Ownership of real properties',
+    prop('residential', 'a. Residential', [['lot', 'Lot'], ['house', 'House'], ['house_and_lot', 'House & Lot'], ['condo_unit', 'Condo unit'], ['townhouse', 'Townhouse'], ['other', 'Other']]) +
+    prop('commercial', 'b. Commercial', [['lot', 'Lot'], ['office_building', 'Office bldg.'], ['commercial_space', 'Commercial space']]) +
+    prop('industrial', 'c. Industrial', [['factory', 'Factory'], ['warehouse', 'Warehouse'], ['plant', 'Plant'], ['other', 'Other']]) +
+    prop('agricultural', 'd. Agricultural', [['riceland', 'Riceland'], ['farmland', 'Farmland'], ['estate', 'Estate'], ['other', 'Other']]));
+
+  const addr = (k, n, l) => `<div class="grid">${inp(ci + k, n + '. ' + l, { cls: 's10' })}</div>`;
+  h += card('Items 22-36', 'Contact information',
+    '<div class="hint">Tick the box beside the address you prefer for mailing.</div><div class="grid">' +
+    inp(ci + 'present_home_address', '22. Present home address', { cls: 's8' }) + '<div class="s4">' + chk(ci + 'present_home_address_boolean', 'Preferred mailing address') + '</div>' +
+    inp(ci + 'previous_address', '23. Previous address', { cls: 's8' }) + '<div class="s4">' + chk(ci + 'previous_address_boolean', 'Preferred mailing address') + '</div>' +
+    inp(ci + 'permanent_home_or_provincial_address', '24. Permanent / provincial address', { cls: 's8' }) + '<div class="s4">' + chk(ci + 'permanent_home_or_provincial_address_boolean', 'Preferred mailing address') + '</div>' +
+    inp(ci + 'office_address', '25. Office address (if any)', { cls: 's8' }) + '<div class="s4">' + chk(ci + 'office_address_boolean', 'Preferred mailing address') + '</div>' +
+    inp(ci + 'mobile_number', '26. Mobile no.', { cls: 's4' }) + inp(ci + 'email_address', '27. Email address', { cls: 's4' }) + inp(ci + 'home_telephone', '28. Home tel. no.', { cls: 's4' }) +
+    inp(ci + 'office_telephone', '29. Office tel. no.', { cls: 's4' }) + inp(ci + 'fax_number', '30. Fax no.', { cls: 's4' }) + inp(ci + 'languages_spoken_and_written', '31. Languages spoken and written', { cls: 's4' }) +
+    inp(ci + 'recruited_by_name', '32. Recruited by', { cls: 's6' }) + inp(ci + 'agency_branch_or_general_agency_manager', '33. Agency / Branch / General Agency Manager', { cls: 's6' }) +
+    inp(ci + 'relatives_in_fortune_life', '34. Relatives in Fortune Life (name and position)', { cls: 's12' }) + '</div>' +
+    checks('35. Clearance submitted', ci + 'clearances', [['nbi_clearance', 'NBI clearance'], ['police_clearance', 'Police clearance']]) +
+    '<div class="grid">' + inp(ci + 'proof_of_billing', '36. Proof of billing (only if applying as AM/BM)', { cls: 's6' }) + '</div>');
+
+  h += card('Items 37-40', 'Academic background',
+    table(P + 'academic_background', [
+      { k: 'school_name', label: 'School name', w: 170 }, { k: 'years_attended_from', label: 'From', w: 64 }, { k: 'years_attended_to', label: 'To', w: 64 },
+      { k: 'degree_obtained', label: 'Degree obtained', w: 150 }, { k: 'graduated', label: 'Graduated', sel: ['', 'Yes', 'No'] }, { k: 'honors_awards', label: 'Honors / awards', w: 110 }
+    ], { fixed: true, rowLabel: i => ['37. High School', '38. Vocational', '39. College', '40. Graduate'][i] }));
+
+  h += card('Items 41-43', 'Pertinent trainings / seminars',
+    '<div class="hint">Date as YYYY-MM-DD or YYYY-MM. It is printed as MM/DD/YYYY or MM/YYYY.</div>' +
+    table(P + 'pertinent_trainings_and_seminars', [{ k: 'topic', label: 'Topic', w: 220 }, { k: 'date', label: 'Date', w: 110, ph: 'YYYY-MM-DD' }, { k: 'venue', label: 'Venue', w: 180 }], { first: 41 }));
+
+  h += card('Items 44-47', 'Previous insurance company / employment (most recent first)',
+    table(P + 'previous_insurance_company_or_employment', [
+      { k: 'company_address', label: 'Company / address', w: 160 }, { k: 'period_from', label: 'From', w: 90, ph: 'YYYY-MM-DD' }, { k: 'period_to', label: 'To', w: 90, ph: 'YYYY-MM-DD' },
+      { k: 'position', label: 'Position', w: 110 }, { k: 'salary', label: 'Salary', w: 80 }, { k: 'immediate_supervisor', label: 'Immediate supervisor', w: 120 },
+      { k: 'contact_number', label: 'Contact no.', w: 100 }, { k: 'reason_for_leaving', label: 'Reason for leaving', w: 130 }
+    ], { first: 44 }));
+
+  h += card('Items 48-50', 'Affiliations / associations',
+    table(P + 'affiliations_and_associations', [{ k: 'organization_name', label: 'Name of organization', w: 220 }, { k: 'inclusive_dates', label: 'Inclusive dates', w: 130 }, { k: 'position', label: 'Position', w: 150 }], { first: 48 }));
+
+  const dz = md + 'diseases.';
+  h += card('Items 51-58', 'Physical and medical data',
+    '<div class="grid">' + inp(md + 'height', '51. Height', { cls: 's3' }) + inp(md + 'weight', '52. Weight', { cls: 's3' }) + inp(md + 'blood_type', '53. Blood type', { cls: 's3' }) +
+    inp(md + 'allergies', '54. Allergies', { cls: 's3' }) + inp(md + 'hmo_coverage', '55. HMO coverage (if any)', { cls: 's6' }) + '</div>' +
+    checks('56. Diseases present', md + 'diseases', [['diabetes', 'Diabetes'], ['bronchial_asthma', 'Bronchial asthma'], ['kidney_disease', 'Kidney disease'], ['heart_ailment', 'Heart ailment'], ['hypertension', 'Hypertension'], ['peptic_ulcer', 'Peptic ulcer'], ['others', 'Others']]) +
+    '<div class="grid">' + inp(dz + 'others_specify', 'Others (please specify)', { cls: 's6' }) + inp(md + 'surgical_operations', '57. Surgical operations', { cls: 's6' }) +
+    inp(md + 'attending_physician_name_and_address', "58. Attending physician's name and address", { cls: 's12' }) + '</div>');
+
+  const person = (k, n, l) => inp(fd + k + '.name', n + '. ' + l + "'s name", { cls: 's6' }) + inp(fd + k + '.age', 'Age', { cls: 's2', type: 'number' }) + inp(fd + k + '.occupation', 'Occupation', { cls: 's4' });
+  h += card('Items 59-63', 'Family data',
+    '<div class="grid">' + person('father', 59, 'Father') + person('mother', 60, 'Mother') + person('spouse', 61, 'Spouse') + inp(fd + 'spouse_employer_and_address', "62. Spouse's employer / address", { cls: 's12' }) + '</div>' +
+    '<h3>63. Children</h3>' + table(P + 'family_data.children', [
+      { k: 'name', label: 'Name', w: 170 }, { k: 'age', label: 'Age', type: 'number', w: 60 }, { k: 'civil_status', label: 'Civil status', w: 90 },
+      { k: 'occupation_or_level', label: 'Occupation / level', w: 120 }, { k: 'employer_or_school', label: 'Employer / school', w: 150 }], { rowLabel: i => 'Child ' + (i + 1) }));
+
+  h += card('Items 64-66', 'References (other than relatives)',
+    table(P + 'references', [{ k: 'name', label: 'Name', w: 150 }, { k: 'position', label: 'Position', w: 110 }, { k: 'company_or_address', label: 'Company / address', w: 190 }, { k: 'telephone_or_mobile', label: 'Tel. / mobile', w: 120 }], { first: 64 }));
+
+  h += card('Items 67-69', 'Insurance ownership',
+    table(P + 'insurance_ownership', [{ k: 'type_and_amount_of_coverage', label: 'Type and amount of coverage', w: 220 }, { k: 'insurance_company', label: 'Insurance company', w: 170 }, { k: 'policy_status', label: 'Status of policy', w: 120 }], { first: 67 }));
+
+  h += card('Item 70', 'About you', '<div class="grid">' + area(P + 'career_plans', '70. Write briefly something about yourself in terms of your career plans and expectations.', 6, 's12') + '</div>');
+
+  $('#form').innerHTML = h;
+  if (window.afAfterRender) window.afAfterRender();
+}
+
+/* ===================== events ===================== */
+$('#form').addEventListener('input', e => {
+  const el = e.target, p = el.dataset && el.dataset.path;
+  if (!p) return;
+  let v;
+  if (el.type === 'checkbox') v = el.checked;
+  else if (el.dataset.t === 'number') v = el.value === '' ? 0 : (Number(el.value) || 0);
+  else v = el.value;
+  setPath(S, p, v);
+});
+$('#form').addEventListener('click', e => {
+  const b = e.target.closest('button'); if (!b) return;
+  if (b.dataset.add) { getPath(S, b.dataset.add).push(ITEM[ARR[b.dataset.add][0]]()); keepScroll(renderAll); }
+  else if (b.dataset.del) { const [p, i] = b.dataset.del.split('|'); getPath(S, p).splice(+i, 1); keepScroll(renderAll); }
+  else if (b.id === 'btnPhotoDel') { S.applicant.photo = ''; keepScroll(renderAll); }
+  else if (b.dataset.sigdel) { S.applicant.signatures[+b.dataset.sigdel].image = ''; keepScroll(renderAll); }
+});
+$('#form').addEventListener('change', async e => {
+  const el = e.target;
+  try {
+    if (el.id === 'filePhoto' && el.files[0]) { S.applicant.photo = await imageToDataUrl(el.files[0], 450); keepScroll(renderAll); }
+    else if (el.dataset && el.dataset.sigfile !== undefined && el.files[0]) { S.applicant.signatures[+el.dataset.sigfile].image = await imageToDataUrl(el.files[0], 600); keepScroll(renderAll); }
+  } catch (err) { msg('err', 'Could not read that image: ' + esc(err.message)); }
+});
+function keepScroll(fn) { const y = window.scrollY; fn(); window.scrollTo(0, y); }
+function imageToDataUrl(file, maxSide) {
+  return new Promise((res, rej) => {
+    const url = URL.createObjectURL(file), img = new Image();
+    img.onload = () => {
+      const k = Math.min(1, maxSide / Math.max(img.width, img.height)), c = document.createElement('canvas');
+      c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+      const x = c.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height); x.drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(url); res(c.toDataURL('image/jpeg', 0.82));
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); rej(new Error('not an image file')); };
+    img.src = url;
+  });
+}
+
+
+
+/* ===================== customer-only behaviour ===================== */
+let saveTimer = null, cooling = false;
+function saveDraft() { try { if (isEmptyDeep(S)) { localStorage.removeItem(CONFIG.storageKey); return; } localStorage.setItem(CONFIG.storageKey, JSON.stringify({ t: Date.now(), data: S })); } catch (e) { /* storage full or blocked: ignore */ } }
+window.afAfterRender = () => { clearTimeout(saveTimer); saveTimer = setTimeout(saveDraft, 400); };
+['input', 'change', 'click'].forEach(t => $('#form').addEventListener(t, () => { clearTimeout(saveTimer); saveTimer = setTimeout(saveDraft, 400); }));
+
+function restoreDraft() {
+  let raw = null; try { raw = localStorage.getItem(CONFIG.storageKey); } catch (e) { return; }
+  if (!raw) return;
+  try {
+    const d = JSON.parse(raw); if (!d || !d.data || !d.data.applicant) return;
+    S = merge(blank(), d.data, '', { missing: [], extra: [] }); renderAll();
+    msg('ok', 'Welcome back. Your saved answers from ' + esc(new Date(d.t).toLocaleString()) + ' were restored.');
+  } catch (e) { /* ignore a damaged draft */ }
+}
+function clearAll(ask) {
+  if (ask && !confirm('This will erase everything you typed on this device. Continue?')) return false;
+  try { localStorage.removeItem(CONFIG.storageKey); } catch (e) {}
+  S = blank(); $('#consent').checked = false; $('#hp').value = '';
+  clearMsgs(); $('#success').style.display = 'none'; renderAll();
+  try { localStorage.removeItem(CONFIG.storageKey); } catch (e) {}   // renderAll schedules a save of the empty form; remove it again
+  clearTimeout(saveTimer); window.scrollTo(0, 0); return true;
+}
+$('#btnClear').addEventListener('click', () => clearAll(true));
+$('#btnAgain').addEventListener('click', () => clearAll(false));
+
+const fullName = () => { const p = S.applicant.personal_information; return [[p.last_name, p.first_name].map(x => String(x || '').trim()).filter(Boolean).join(', '), String(p.middle_name || '').trim()].filter(Boolean).join(' '); };
+function validate() {
+  const p = S.applicant.personal_information, c = S.applicant.contact_information, e = [];
+  if (!String(p.last_name).trim()) e.push('Item 3: please enter your last name.');
+  if (!String(p.first_name).trim()) e.push('Item 3: please enter your first name.');
+  const em = String(c.email_address || '').trim(), mob = String(c.mobile_number || '').trim();
+  if (!em && !mob) e.push('Items 26-27: please enter a mobile number or an email address so we can reach you.');
+  if (em && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) e.push('Item 27: the email address does not look right.');
+  if (!$('#consent').checked) e.push('Please tick the consent box.');
+  return e;
+}
+function downloadFile(blob, name) { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500); }
+const fileBase = () => 'AF001_' + (fullName().replace(/[^\w]+/g, '_').replace(/^_|_$/g, '') || 'form');
+$('#btnCopy').addEventListener('click', () => downloadFile(new Blob([JSON.stringify(exportObj(), null, 2) + '\n'], { type: 'application/json' }), fileBase() + '.json'));
+
+async function sendForm() {
+  clearMsgs();
+  if ($('#hp').value) { showSuccess(); return; }                      // bot trap: pretend it worked
+  const errs = validate();
+  if (errs.length) { msg('err', '<b>Please check the following before sending:</b>', errs); $('#msgs').scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+  if (!CONFIG.accessKey || /^YOUR_/.test(CONFIG.accessKey)) { msg('err', '<b>Sending is not set up yet.</b> The owner of this page still has to paste the Web3Forms access key into CONFIG.accessKey.'); $('#msgs').scrollIntoView(); return; }
+  const json = JSON.stringify(exportObj(), null, 2);
+  if (json.length > CONFIG.maxJsonChars) { msg('err', 'Your form is too large to send. Please remove the photo (item 2) or choose a smaller one, then try again.'); $('#msgs').scrollIntoView(); return; }
+  const now = new Date().toLocaleString('en-PH', { timeZone: 'Asia/Manila', dateStyle: 'medium', timeStyle: 'short' });
+  const em = String(S.applicant.contact_information.email_address || '').trim();
+  const message = ['AF-001 Personal History Form', 'Applicant: ' + fullName(), 'Submitted: ' + now + ' (Manila time)', '',
+    'To use it: copy everything between the two marker lines into a file named applicant.json and open it with the AF-001 tool.', '',
+    '-----BEGIN AF001 JSON-----', json, '-----END AF001 JSON-----'].join('\n');
+  const payload = { access_key: CONFIG.accessKey, subject: CONFIG.subject + ' | ' + fullName() + ' | ' + now, from_name: CONFIG.fromName, name: fullName(), message };
+  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) payload.email = em;      // lets you reply straight to the customer
+  const btn = $('#btnSend'), old = btn.textContent; btn.disabled = true; btn.textContent = 'Sending...';
+  try {
+    const r = await fetch(CONFIG.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' }, body: JSON.stringify(payload) });
+    let j = {}; try { j = await r.json(); } catch (e) {}
+    if (!(r.ok && j.success)) throw new Error(j.message || ('the server answered ' + r.status));
+    showSuccess(); startCooldown(btn, old);
+  } catch (err) {
+    btn.disabled = false; btn.textContent = old;
+    const offline = !navigator.onLine ? ' You seem to be offline.' : '';
+    msg('err', '<b>Your form could not be sent</b> (' + esc(err.message) + ').' + offline + ' Your answers are still saved on this device. Please try again in a moment, or press <b>Download a copy</b> and send the file to your recruiter.');
+    $('#msgs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+function showSuccess() {
+  const who = fullName();
+  if (CONFIG.clearAfterSend) { try { localStorage.removeItem(CONFIG.storageKey); } catch (e) {} S = blank(); $('#consent').checked = false; renderAll(); try { localStorage.removeItem(CONFIG.storageKey); } catch (e) {} clearTimeout(saveTimer); }
+  clearMsgs(); $('#successText').textContent = (who ? who + ', your' : 'Your') + ' answers were sent to your recruiter.' + (CONFIG.clearAfterSend ? ' They were erased from this device.' : '');
+  $('#success').style.display = 'block'; $('#success').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+function startCooldown(btn, label) {
+  let n = CONFIG.cooldownSeconds; cooling = true; btn.disabled = true;
+  const t = setInterval(() => { n--; btn.textContent = n > 0 ? 'Sent (' + n + 's)' : label; if (n <= 0) { clearInterval(t); btn.disabled = false; cooling = false; } }, 1000);
+  btn.textContent = 'Sent (' + n + 's)';
+}
+$('#btnSend').addEventListener('click', () => { if (!cooling) sendForm(); });
+
+window.__cf = { state: () => S, CONFIG, validate, sendForm };
+renderAll(); restoreDraft();
+</script>
+</body>
+</html>
