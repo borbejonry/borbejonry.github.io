@@ -66,17 +66,82 @@ function resize() {
 }
 
 function makeCube() {
-  const size = 0.16;
-  const geometry = new THREE.BoxGeometry(size, size, size);
-  const materials = [
-    0xf97316, 0x8b5cf6, 0x22d3ee, 0xfacc15, 0x34d399, 0xfb7185
-  ].map(color => new THREE.MeshStandardMaterial({ color, roughness: 0.48, metalness: 0.04 }));
+  // Keep the existing function name so placement logic stays unchanged,
+  // but build a stylized strawberry instead of a cube.
   const group = new THREE.Group();
-  group.add(new THREE.Mesh(geometry, materials));
-  group.add(new THREE.LineSegments(
-    new THREE.EdgesGeometry(geometry),
-    new THREE.LineBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9 })
-  ));
+  const radius = 0.075;
+  const height = 0.17;
+  const rings = 24;
+  const segments = 40;
+  const vertices = [];
+  const indices = [];
+
+  // Rounded shoulders taper into the strawberry's pointed bottom.
+  for (let ring = 0; ring <= rings; ring++) {
+    const t = ring / rings;
+    const y = height * (0.5 - t);
+    const profile = Math.pow(Math.sin(Math.PI * Math.pow(t, 0.78)), 0.72);
+    const shoulder = 0.78 + 0.22 * (1 - t);
+    const r = radius * profile * shoulder;
+    for (let segment = 0; segment <= segments; segment++) {
+      const angle = (segment / segments) * Math.PI * 2;
+      vertices.push(Math.cos(angle) * r, y, Math.sin(angle) * r);
+    }
+  }
+  for (let ring = 0; ring < rings; ring++) {
+    for (let segment = 0; segment < segments; segment++) {
+      const a = ring * (segments + 1) + segment;
+      const b = a + segments + 1;
+      indices.push(a, b, a + 1, b, b + 1, a + 1);
+    }
+  }
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+  geometry.setIndex(indices);
+  geometry.computeVertexNormals();
+  const berry = new THREE.Mesh(
+    geometry,
+    new THREE.MeshStandardMaterial({ color: 0xe9233a, roughness: 0.62, metalness: 0 })
+  );
+  group.add(berry);
+
+  // Small golden seeds sit on the berry's surface in staggered rows.
+  const seedGeometry = new THREE.SphereGeometry(0.0032, 8, 6);
+  const seedMaterial = new THREE.MeshStandardMaterial({ color: 0xffd66b, roughness: 0.7 });
+  for (let row = 0; row < 7; row++) {
+    const t = 0.13 + row * 0.105;
+    const y = height * (0.5 - t);
+    const profile = Math.pow(Math.sin(Math.PI * Math.pow(t, 0.78)), 0.72);
+    const r = radius * profile * (0.78 + 0.22 * (1 - t));
+    const count = Math.max(5, Math.round(8 * Math.sin(Math.PI * t)));
+    for (let i = 0; i < count; i++) {
+      const angle = (i / count) * Math.PI * 2 + (row % 2) * 0.22;
+      const seed = new THREE.Mesh(seedGeometry, seedMaterial);
+      seed.position.set(Math.cos(angle) * (r + 0.001), y, Math.sin(angle) * (r + 0.001));
+      seed.scale.set(0.7, 1.25, 0.7);
+      seed.quaternion.setFromUnitVectors(
+        new THREE.Vector3(0, 1, 0),
+        new THREE.Vector3(Math.cos(angle), 0.15, Math.sin(angle)).normalize()
+      );
+      group.add(seed);
+    }
+  }
+
+  // Five pointed green leaves form a leafy crown at the top.
+  const leafMaterial = new THREE.MeshStandardMaterial({ color: 0x38a34a, roughness: 0.68, side: THREE.DoubleSide });
+  for (let i = 0; i < 5; i++) {
+    const angle = (i / 5) * Math.PI * 2;
+    const leafShape = new THREE.Shape();
+    leafShape.moveTo(0, 0);
+    leafShape.quadraticCurveTo(0.025, 0.006, 0.037, 0.014);
+    leafShape.quadraticCurveTo(0.016, 0.016, 0, 0);
+    const leafGeometry = new THREE.ShapeGeometry(leafShape);
+    const leaf = new THREE.Mesh(leafGeometry, leafMaterial);
+    leaf.position.set(0, height * 0.48, 0);
+    leaf.rotation.set(-Math.PI / 2, 0, angle);
+    leaf.scale.set(0.8, 0.8, 0.8);
+    group.add(leaf);
+  }
   return group;
 }
 
