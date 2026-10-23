@@ -137,6 +137,12 @@ async function startAR() {
     // WebXR normally composites the camera passthrough in the browser/runtime.
     // The page cannot manufacture that feed with CSS if the runtime reports opaque.
     const blendMode = session.environmentBlendMode || 'unknown';
+    if (blendMode === 'alpha-blend' || blendMode === 'additive') {
+      document.body.classList.add('ar-passthrough');
+    } else {
+      document.body.classList.remove('ar-passthrough');
+      status('XR session started, but blend mode is "' + blendMode + '". Real-world passthrough is not available; hiding the UI would only leave a dark screen.');
+    }
 
     state.referenceSpace = getRendererReferenceSpace();
     state.referenceSpaceType = 'local';
@@ -146,9 +152,9 @@ async function startAR() {
     state.renderer.domElement.addEventListener('pointerdown', onCanvasTap);
     ui.place.disabled = false;
     ui.reset.disabled = false;
-    status(blendMode === 'opaque'
-      ? 'AR session started, but the browser reports opaque blending. Camera passthrough is unavailable in this session; this is a browser/device runtime issue, not a CSS layer issue.'
-      : 'AR active · blend mode: ' + blendMode + '. The camera background is provided by the browser. Scan slowly for surfaces.');
+    if (blendMode === 'alpha-blend' || blendMode === 'additive') {
+      status('AR active · blend mode: ' + blendMode + '. Scan slowly for surfaces.');
+    }
   } catch (error) {
     console.error(error);
     if (state.session) {
@@ -156,7 +162,7 @@ async function startAR() {
       state.session = null;
       try { await failedSession.end(); } catch (_) { /* session may already be ended */ }
     }
-    document.body.classList.remove('ar-active');
+    document.body.classList.remove('ar-active', 'ar-passthrough');
     if (state.renderer) {
       state.renderer.setAnimationLoop(null);
       state.renderer.dispose();
@@ -237,7 +243,7 @@ function render(_time, frame) {
 }
 
 function onSessionEnd() {
-  document.body.classList.remove('ar-active');
+  document.body.classList.remove('ar-active', 'ar-passthrough');
   state.session = null;
   state.hitTestSource = null;
   state.hitPose = null;
