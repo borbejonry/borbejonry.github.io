@@ -66,24 +66,31 @@ function resize() {
 }
 
 function makeStrawberry() {
-  // Rounded shoulders and a single tapered tip create a recognizable berry shape.
+  // A broad shoulder, gently indented crown, and long tapered lower half.
   const group = new THREE.Group();
-  const radius = 0.075;
-  const height = 0.17;
-  const rings = 24;
-  const segments = 40;
+  const radius = 0.078;
+  const height = 0.18;
+  const rings = 36;
+  const segments = 48;
   const vertices = [];
   const indices = [];
 
-  // Rounded shoulders taper into the strawberry's pointed bottom.
+  // t=0 is the leafy top and t=1 is the pointed tip.
+  // The Gaussian shoulder keeps the berry plump near the top instead of cone-shaped.
+  const berryRadiusAt = (t) => {
+    const shoulder = 0.34 + 0.66 * Math.exp(-Math.pow((t - 0.23) / 0.27, 2));
+    return radius * shoulder * Math.pow(Math.max(0, 1 - t), 0.68);
+  };
+
   for (let ring = 0; ring <= rings; ring++) {
     const t = ring / rings;
     const y = height * (0.5 - t);
-    const profile = Math.pow(1 - t, 0.62) * (0.74 + 0.26 * Math.sin(Math.PI * Math.min(t / 0.42, 1) / 2));
-    const r = radius * profile;
+    const r = berryRadiusAt(t);
     for (let segment = 0; segment <= segments; segment++) {
       const angle = (segment / segments) * Math.PI * 2;
-      vertices.push(Math.cos(angle) * r, y, Math.sin(angle) * r);
+      // Tiny radial variation makes the silhouette less mechanically perfect.
+      const ripple = 1 + 0.018 * Math.sin(angle * 5 + t * 7) + 0.012 * Math.sin(angle * 9 - t * 4);
+      vertices.push(Math.cos(angle) * r * ripple, y, Math.sin(angle) * r * ripple);
     }
   }
   for (let ring = 0; ring < rings; ring++) {
@@ -104,18 +111,17 @@ function makeStrawberry() {
   group.add(berry);
 
   // Small golden seeds sit on the berry's surface in staggered rows.
-  const seedGeometry = new THREE.SphereGeometry(0.0032, 8, 6);
+  const seedGeometry = new THREE.SphereGeometry(0.003, 8, 6);
   const seedMaterial = new THREE.MeshStandardMaterial({ color: 0xffd66b, roughness: 0.7 });
   for (let row = 0; row < 7; row++) {
     const t = 0.13 + row * 0.105;
     const y = height * (0.5 - t);
-    const profile = Math.pow(1 - t, 0.62) * (0.74 + 0.26 * Math.sin(Math.PI * Math.min(t / 0.42, 1) / 2));
-    const r = radius * profile;
+    const r = berryRadiusAt(t);
     const count = Math.max(5, Math.round(8 * Math.sin(Math.PI * t)));
     for (let i = 0; i < count; i++) {
       const angle = (i / count) * Math.PI * 2 + (row % 2) * 0.22;
       const seed = new THREE.Mesh(seedGeometry, seedMaterial);
-      seed.position.set(Math.cos(angle) * (r + 0.001), y, Math.sin(angle) * (r + 0.001));
+      seed.position.set(Math.cos(angle) * (r + 0.0015), y, Math.sin(angle) * (r + 0.0015));
       seed.scale.set(0.7, 1.25, 0.7);
       seed.quaternion.setFromUnitVectors(
         new THREE.Vector3(0, 1, 0),
