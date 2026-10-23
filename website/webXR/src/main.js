@@ -137,12 +137,9 @@ async function startAR() {
     // WebXR normally composites the camera passthrough in the browser/runtime.
     // The page cannot manufacture that feed with CSS if the runtime reports opaque.
     const blendMode = session.environmentBlendMode || 'unknown';
-    if (blendMode === 'alpha-blend' || blendMode === 'additive') {
-      document.body.classList.add('ar-passthrough');
-    } else {
-      document.body.classList.remove('ar-passthrough');
-      status('XR session started, but blend mode is "' + blendMode + '". Real-world passthrough is not available; hiding the UI would only leave a dark screen.');
-    }
+    document.body.classList.remove('ar-passthrough');
+    const featureList = Array.from(session.enabledFeatures || []).join(', ') || 'not reported';
+    status('XR SESSION STARTED | blend=' + blendMode + ' | features=' + featureList + ' | checking reference space…');
 
     state.referenceSpace = getRendererReferenceSpace();
     state.referenceSpaceType = 'local';
@@ -152,9 +149,10 @@ async function startAR() {
     state.renderer.domElement.addEventListener('pointerdown', onCanvasTap);
     ui.place.disabled = false;
     ui.reset.disabled = false;
-    if (blendMode === 'alpha-blend' || blendMode === 'additive') {
-      status('AR active · blend mode: ' + blendMode + '. Scan slowly for surfaces.');
-    }
+    status('XR SESSION OK | blend=' + blendMode + ' | ref=local | hit-test=ready. ' +
+      ((blendMode === 'alpha-blend' || blendMode === 'additive')
+        ? 'If no real-world view appears, the AR runtime/compositor is not showing passthrough.'
+        : 'This session is opaque; real-world passthrough is unavailable.'));
   } catch (error) {
     console.error(error);
     if (state.session) {
@@ -174,7 +172,8 @@ async function startAR() {
     ui.start.disabled = false;
     ui.place.disabled = true;
     ui.reset.disabled = true;
-    status('AR failed to start: ' + (error?.message || String(error)) + ' If all reference spaces fail, update Chrome/Google Play Services for AR and retry.');
+    status('XR START FAILED | ' + (error?.name || 'Error') + ': ' + (error?.message || String(error)) +
+      ' | Check Chrome WebXR + Google Play Services for AR.');
   }
 }
 
@@ -232,7 +231,10 @@ function render(_time, frame) {
           if (child.material?.color) child.material.color.setHex(surface.color);
         });
         state.reticle.visible = true;
-        if (++state.frameCount % 45 === 0) status('Surface found: ' + surface.type + '. Tap Place cube.');
+        if (++state.frameCount % 45 === 0) {
+          const mode = state.session?.environmentBlendMode || 'unknown';
+          status('XR active | blend=' + mode + ' | surface=' + surface.type + ' | hit-test working');
+        }
       }
     } else {
       state.hitPose = null;
