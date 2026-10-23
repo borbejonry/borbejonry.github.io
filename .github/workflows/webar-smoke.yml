@@ -1,0 +1,29 @@
+name: WebXR smoke checks
+
+on:
+  pull_request:
+    paths:
+      - 'website/webXR/**'
+      - '.github/workflows/webar-smoke.yml'
+  push:
+    branches:
+      - main
+      - feature/markerless-webar-reconstruction
+    paths:
+      - 'website/webXR/**'
+      - '.github/workflows/webar-smoke.yml'
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check JavaScript module syntax
+        run: cp website/webXR/src/main.js /tmp/webar-main.mjs && node --check /tmp/webar-main.mjs
+      - name: Run static smoke tests
+        run: node website/webXR/tests/smoke.mjs
