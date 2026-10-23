@@ -7,7 +7,8 @@ const ui = {
   reset: document.querySelector('#reset-scene'),
   unsupported: document.querySelector('#unsupported'),
   unsupportedMessage: document.querySelector('#unsupported-message'),
-  retry: document.querySelector('#retry-support')
+  retry: document.querySelector('#retry-support'),
+  toggleHud: document.querySelector('#toggle-hud')
 };
 
 const state = {
@@ -18,6 +19,13 @@ const state = {
 };
 
 function status(message) { ui.status.textContent = message; }
+
+function setHudHidden(hidden) {
+  document.body.classList.toggle('hud-hidden', hidden);
+  ui.toggleHud.setAttribute('aria-expanded', String(!hidden));
+  ui.toggleHud.setAttribute('aria-label', hidden ? 'Show interface' : 'Hide interface');
+  ui.toggleHud.textContent = hidden ? '☰' : '×';
+}
 
 function createScene() {
   state.scene = new THREE.Scene();
@@ -335,6 +343,7 @@ function onSessionEnd() {
   status('AR session ended. Start AR to try again.');
 }
 
+ui.toggleHud.addEventListener('click', () => setHudHidden(!document.body.classList.contains('hud-hidden')));
 ui.start.addEventListener('click', startAR);
 ui.place.addEventListener('click', placeCube);
 ui.reset.addEventListener('click', resetScene);
