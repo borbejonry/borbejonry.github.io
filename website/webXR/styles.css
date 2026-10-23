@@ -7,7 +7,7 @@ body.ar-active,body.ar-active #app,body.ar-active #scene-root{background:transpa
 body.ar-active canvas{background:transparent!important}
 
 /* Keep the camera view unobstructed during immersive AR. WebXR camera passthrough is compositor-owned, not an HTML video layer. */
-body.ar-active.ar-passthrough .hud{display:none!important}
-body.ar-active.ar-passthrough .footer{display:none!important}
-body.ar-active.ar-passthrough #scene-root{z-index:10}
-body.ar-active.ar-passthrough canvas{position:fixed;inset:0;width:100vw;height:100dvh;z-index:10}
+body.ar-active #scene-root{z-index:0}
+body.ar-active canvas{position:fixed;inset:0;width:100vw;height:100dvh;z-index:0}
+body.ar-active .hud{z-index:20;max-height:75dvh;overflow:auto;background:rgba(11,16,32,.9)}
+body.ar-active .footer{z-index:20}
