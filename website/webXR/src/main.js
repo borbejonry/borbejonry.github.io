@@ -126,8 +126,24 @@ async function startAR() {
     status('AR is running. Sweep across the floor and walls. When the reticle appears, tap Place cube.');
   } catch (error) {
     console.error(error);
-    status('AR failed to start: ' + (error?.message || String(error)));
+    // A session can be created before renderer/reference-space setup fails.
+    // End it explicitly so the camera and XR runtime are not left active.
+    if (state.session) {
+      const failedSession = state.session;
+      state.session = null;
+      try { await failedSession.end(); } catch (_) { /* session may already be ended */ }
+    }
+    if (state.renderer) {
+      state.renderer.setAnimationLoop(null);
+      state.renderer.dispose();
+      state.renderer.domElement.remove();
+    }
+    state.renderer = state.scene = state.camera = state.reticle = null;
+    state.hitTestSource = state.referenceSpace = state.viewerSpace = state.hitPose = null;
     ui.start.disabled = false;
+    ui.place.disabled = true;
+    ui.reset.disabled = true;
+    status('AR failed to start: ' + (error?.message || String(error)));
   }
 }
 
