@@ -14,7 +14,8 @@
 <body>
   <main id="app">
     <div id="scene-root" aria-label="Augmented reality scene"></div>
-    <header class="hud">
+    <button id="toggle-hud" class="hud-toggle" type="button" aria-expanded="true" aria-controls="control-panel" aria-label="Hide interface">☰</button>
+    <header id="control-panel" class="hud">
       <a class="brand" href="../../" aria-label="Back to portfolio">JB<span>.</span> / SURFACE LAB</a>
       <div class="eyebrow">MARKERLESS WEBAR · PROTOTYPE 01</div>
       <h1>Find a surface.<br><em>Place something there.</em></h1>
@@ -44,6 +45,6 @@
       </div>
     </section>
   </main>
-  <script type="module" src="./src/main.js?v=strawberry-3"></script>
+  <script type="module" src="./src/main.js?v=hud-toggle-1"></script>
 </body>
 </html>
