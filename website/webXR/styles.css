@@ -11,3 +11,11 @@ body.ar-active #scene-root{z-index:0}
 body.ar-active canvas{position:fixed;inset:0;width:100vw;height:100dvh;z-index:0}
 body.ar-active .hud{z-index:20;max-height:75dvh;overflow:auto;background:rgba(11,16,32,.9)}
 body.ar-active .footer{z-index:20}
+
+/* Compact always-available interface toggle for immersive AR. */
+.hud-toggle{position:fixed;z-index:30;top:max(12px,env(safe-area-inset-top));left:max(12px,env(safe-area-inset-left));width:44px;height:44px;padding:0;border-radius:14px;background:rgba(11,16,32,.88);color:#f4f6ff;border:1px solid #ffffff35;box-shadow:0 5px 24px #0004;font-size:21px;display:grid;place-items:center;backdrop-filter:blur(12px)}
+body:not(.ar-active) .hud-toggle{display:none}
+body.hud-hidden .hud{display:none!important}
+body.hud-hidden .footer{display:none!important}
+body.hud-hidden .hud-toggle{left:max(12px,env(safe-area-inset-left))}
+body.hud-hidden .hud-toggle{color:var(--mint)}
