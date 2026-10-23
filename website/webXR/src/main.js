@@ -3,7 +3,7 @@ import * as THREE from 'three';
 const ui = {
   status: document.querySelector('#status'),
   start: document.querySelector('#start-ar'),
-  place: document.querySelector('#place-cube'),
+  place: document.querySelector('#place-strawberry'),
   reset: document.querySelector('#reset-scene'),
   unsupported: document.querySelector('#unsupported'),
   unsupportedMessage: document.querySelector('#unsupported-message'),
