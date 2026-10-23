@@ -134,10 +134,9 @@ async function startAR() {
     await state.renderer.xr.setSession(session);
     document.body.classList.add('ar-active');
 
-    // WebXR provides the real-world camera as compositor passthrough, not as
-    // a normal HTML video. Report the blend mode so a black view is diagnosable.
+    // WebXR normally composites the camera passthrough in the browser/runtime.
+    // The page cannot manufacture that feed with CSS if the runtime reports opaque.
     const blendMode = session.environmentBlendMode || 'unknown';
-    status('AR session active · camera blend mode: ' + blendMode);
 
     state.referenceSpace = getRendererReferenceSpace();
     state.referenceSpaceType = 'local';
@@ -147,7 +146,9 @@ async function startAR() {
     state.renderer.domElement.addEventListener('pointerdown', onCanvasTap);
     ui.place.disabled = false;
     ui.reset.disabled = false;
-    status('AR active · blend mode: ' + blendMode + '. Scan slowly for surfaces.');
+    status(blendMode === 'opaque'
+      ? 'AR session started, but the browser reports opaque blending. Camera passthrough is unavailable in this session; this is a browser/device runtime issue, not a CSS layer issue.'
+      : 'AR active · blend mode: ' + blendMode + '. The camera background is provided by the browser. Scan slowly for surfaces.');
   } catch (error) {
     console.error(error);
     if (state.session) {
