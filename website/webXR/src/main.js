@@ -12,7 +12,7 @@ const ui = {
 
 const state = {
   renderer: null, scene: null, camera: null, session: null,
-  referenceSpace: null, viewerSpace: null, hitTestSource: null,
+  referenceSpace: null, referenceSpaceType: null, viewerSpace: null, hitTestSource: null,
   hitPose: null, reticle: null, placed: [], latestSurface: 'unknown',
   frameCount: 0
 };
@@ -104,6 +104,23 @@ async function checkSupport() {
   }
 }
 
+async function requestCompatibleReferenceSpace(session) {
+  // Some WebXR implementations report immersive-ar support but reject one
+  // of the usual reference-space types at runtime. Try stable world spaces
+  // first, then viewer as a last-resort diagnostic fallback.
+  const candidates = ['local-floor', 'local', 'viewer'];
+  const failures = [];
+  for (const type of candidates) {
+    try {
+      const space = await session.requestReferenceSpace(type);
+      return { space, type, failures };
+    } catch (error) {
+      failures.push(type + ': ' + (error?.message || String(error)));
+    }
+  }
+  throw new Error('No supported reference space. ' + failures.join(' | '));
+}
+
 async function startAR() {
   ui.start.disabled = true;
   status('Requesting AR session…');
@@ -116,18 +133,24 @@ async function startAR() {
     state.session = session;
     createScene();
     await state.renderer.xr.setSession(session);
-    state.referenceSpace = await session.requestReferenceSpace('local');
+
+    const reference = await requestCompatibleReferenceSpace(session);
+    state.referenceSpace = reference.space;
+    state.referenceSpaceType = reference.type;
     state.viewerSpace = await session.requestReferenceSpace('viewer');
     state.hitTestSource = await session.requestHitTestSource({ space: state.viewerSpace });
     session.addEventListener('end', onSessionEnd, { once: true });
     state.renderer.domElement.addEventListener('pointerdown', onCanvasTap);
     ui.place.disabled = false;
     ui.reset.disabled = false;
-    status('AR is running. Sweep across the floor and walls. When the reticle appears, tap Place cube.');
+    const fallbackNote = reference.type === 'local-floor'
+      ? 'Using floor-level tracking.'
+      : reference.type === 'local'
+        ? 'Using local tracking.'
+        : 'Warning: viewer-space fallback is less stable for persistent placement.';
+    status('AR started (' + reference.type + '). ' + fallbackNote + ' Scan surfaces, then tap Place cube.');
   } catch (error) {
     console.error(error);
-    // A session can be created before renderer/reference-space setup fails.
-    // End it explicitly so the camera and XR runtime are not left active.
     if (state.session) {
       const failedSession = state.session;
       state.session = null;
@@ -140,10 +163,11 @@ async function startAR() {
     }
     state.renderer = state.scene = state.camera = state.reticle = null;
     state.hitTestSource = state.referenceSpace = state.viewerSpace = state.hitPose = null;
+    state.referenceSpaceType = null;
     ui.start.disabled = false;
     ui.place.disabled = true;
     ui.reset.disabled = true;
-    status('AR failed to start: ' + (error?.message || String(error)));
+    status('AR failed to start: ' + (error?.message || String(error)) + ' If all reference spaces fail, update Chrome/Google Play Services for AR and retry.');
   }
 }
 
@@ -162,9 +186,7 @@ function placeCube() {
   const surface = classifySurface(matrix);
   const cube = makeCube();
   cube.position.copy(hitPosition);
-  // Align the cube's local up direction with the hit surface normal.
   cube.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), surface.normal);
-  // Nudge slightly away from the detected plane to avoid z-fighting / clipping.
   cube.position.addScaledVector(surface.normal, 0.085);
   state.scene.add(cube);
   state.placed.push(cube);
@@ -218,6 +240,7 @@ function onSessionEnd() {
   state.hitTestSource = null;
   state.hitPose = null;
   state.referenceSpace = null;
+  state.referenceSpaceType = null;
   state.viewerSpace = null;
   if (state.renderer) {
     state.renderer.setAnimationLoop(null);
