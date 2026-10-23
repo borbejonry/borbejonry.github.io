@@ -134,6 +134,11 @@ async function startAR() {
     await state.renderer.xr.setSession(session);
     document.body.classList.add('ar-active');
 
+    // WebXR provides the real-world camera as compositor passthrough, not as
+    // a normal HTML video. Report the blend mode so a black view is diagnosable.
+    const blendMode = session.environmentBlendMode || 'unknown';
+    status('AR session active · camera blend mode: ' + blendMode);
+
     state.referenceSpace = getRendererReferenceSpace();
     state.referenceSpaceType = 'local';
     state.viewerSpace = await session.requestReferenceSpace('viewer');
@@ -142,7 +147,7 @@ async function startAR() {
     state.renderer.domElement.addEventListener('pointerdown', onCanvasTap);
     ui.place.disabled = false;
     ui.reset.disabled = false;
-    status('AR started (local reference space). Scan surfaces, then tap Place cube.');
+    status('AR active · blend mode: ' + blendMode + '. Scan slowly for surfaces.');
   } catch (error) {
     console.error(error);
     if (state.session) {
