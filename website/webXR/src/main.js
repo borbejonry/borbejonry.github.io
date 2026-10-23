@@ -104,21 +104,15 @@ async function checkSupport() {
   }
 }
 
-async function requestCompatibleReferenceSpace(session) {
-  // Some WebXR implementations report immersive-ar support but reject one
-  // of the usual reference-space types at runtime. Try stable world spaces
-  // first, then viewer as a last-resort diagnostic fallback.
-  const candidates = ['local-floor', 'local', 'viewer'];
-  const failures = [];
-  for (const type of candidates) {
-    try {
-      const space = await session.requestReferenceSpace(type);
-      return { space, type, failures };
-    } catch (error) {
-      failures.push(type + ': ' + (error?.message || String(error)));
-    }
+function getRendererReferenceSpace() {
+  // Use the same reference space as Three.js's XR camera. Requesting a
+  // separate space can fail on some runtimes, and viewer space is not a
+  // valid substitute for stable world placement.
+  const space = state.renderer?.xr.getReferenceSpace();
+  if (!space) {
+    throw new Error('The XR renderer did not provide a local reference space. Update Chrome and Google Play Services for AR, then retry.');
   }
-  throw new Error('No supported reference space. ' + failures.join(' | '));
+  return space;
 }
 
 async function startAR() {
@@ -132,23 +126,20 @@ async function startAR() {
     });
     state.session = session;
     createScene();
+    // Set this before setSession: Three.js otherwise defaults to
+    // local-floor, which may be rejected by a runtime that only exposes local.
+    state.renderer.xr.setReferenceSpaceType('local');
     await state.renderer.xr.setSession(session);
 
-    const reference = await requestCompatibleReferenceSpace(session);
-    state.referenceSpace = reference.space;
-    state.referenceSpaceType = reference.type;
+    state.referenceSpace = getRendererReferenceSpace();
+    state.referenceSpaceType = 'local';
     state.viewerSpace = await session.requestReferenceSpace('viewer');
     state.hitTestSource = await session.requestHitTestSource({ space: state.viewerSpace });
     session.addEventListener('end', onSessionEnd, { once: true });
     state.renderer.domElement.addEventListener('pointerdown', onCanvasTap);
     ui.place.disabled = false;
     ui.reset.disabled = false;
-    const fallbackNote = reference.type === 'local-floor'
-      ? 'Using floor-level tracking.'
-      : reference.type === 'local'
-        ? 'Using local tracking.'
-        : 'Warning: viewer-space fallback is less stable for persistent placement.';
-    status('AR started (' + reference.type + '). ' + fallbackNote + ' Scan surfaces, then tap Place cube.');
+    status('AR started (local reference space). Scan surfaces, then tap Place cube.');
   } catch (error) {
     console.error(error);
     if (state.session) {
