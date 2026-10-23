@@ -45,6 +45,8 @@ function createScene() {
   state.scene.add(state.reticle);
 
   state.renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'high-performance' });
+  // AR camera passthrough is visible only where the WebGL canvas is transparent.
+  state.renderer.setClearColor(0x000000, 0);
   state.renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
   state.renderer.setSize(innerWidth, innerHeight);
   state.renderer.xr.enabled = true;
@@ -130,6 +132,7 @@ async function startAR() {
     // local-floor, which may be rejected by a runtime that only exposes local.
     state.renderer.xr.setReferenceSpaceType('local');
     await state.renderer.xr.setSession(session);
+    document.body.classList.add('ar-active');
 
     state.referenceSpace = getRendererReferenceSpace();
     state.referenceSpaceType = 'local';
@@ -147,6 +150,7 @@ async function startAR() {
       state.session = null;
       try { await failedSession.end(); } catch (_) { /* session may already be ended */ }
     }
+    document.body.classList.remove('ar-active');
     if (state.renderer) {
       state.renderer.setAnimationLoop(null);
       state.renderer.dispose();
@@ -227,6 +231,7 @@ function render(_time, frame) {
 }
 
 function onSessionEnd() {
+  document.body.classList.remove('ar-active');
   state.session = null;
   state.hitTestSource = null;
   state.hitPose = null;
