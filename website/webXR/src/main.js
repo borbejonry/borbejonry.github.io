@@ -65,9 +65,8 @@ function resize() {
   }
 }
 
-function makeCube() {
-  // Keep the existing function name so placement logic stays unchanged,
-  // but build a stylized strawberry instead of a cube.
+function makeStrawberry() {
+  // Rounded shoulders and a single tapered tip create a recognizable berry shape.
   const group = new THREE.Group();
   const radius = 0.075;
   const height = 0.17;
@@ -80,9 +79,8 @@ function makeCube() {
   for (let ring = 0; ring <= rings; ring++) {
     const t = ring / rings;
     const y = height * (0.5 - t);
-    const profile = Math.pow(Math.sin(Math.PI * Math.pow(t, 0.78)), 0.72);
-    const shoulder = 0.78 + 0.22 * (1 - t);
-    const r = radius * profile * shoulder;
+    const profile = Math.pow(1 - t, 0.62) * (0.74 + 0.26 * Math.sin(Math.PI * Math.min(t / 0.42, 1) / 2));
+    const r = radius * profile;
     for (let segment = 0; segment <= segments; segment++) {
       const angle = (segment / segments) * Math.PI * 2;
       vertices.push(Math.cos(angle) * r, y, Math.sin(angle) * r);
@@ -111,8 +109,8 @@ function makeCube() {
   for (let row = 0; row < 7; row++) {
     const t = 0.13 + row * 0.105;
     const y = height * (0.5 - t);
-    const profile = Math.pow(Math.sin(Math.PI * Math.pow(t, 0.78)), 0.72);
-    const r = radius * profile * (0.78 + 0.22 * (1 - t));
+    const profile = Math.pow(1 - t, 0.62) * (0.74 + 0.26 * Math.sin(Math.PI * Math.min(t / 0.42, 1) / 2));
+    const r = radius * profile;
     const count = Math.max(5, Math.round(8 * Math.sin(Math.PI * t)));
     for (let i = 0; i < count; i++) {
       const angle = (i / count) * Math.PI * 2 + (row % 2) * 0.22;
@@ -159,7 +157,7 @@ async function checkSupport() {
     const supported = !!navigator.xr && await navigator.xr.isSessionSupported('immersive-ar');
     ui.start.disabled = !supported;
     ui.unsupported.classList.toggle('hidden', supported);
-    if (supported) status('Compatible immersive AR detected. Start AR, scan slowly, then place a cube.');
+    if (supported) status('Compatible immersive AR detected. Start AR, scan slowly, then place a strawberry.');
     else status('Immersive AR is not supported by this browser/device.');
     return supported;
   } catch (error) {
@@ -255,14 +253,14 @@ function placeCube() {
   const matrix = new THREE.Matrix4().fromArray(state.hitPose.transform.matrix);
   const hitPosition = new THREE.Vector3().setFromMatrixPosition(matrix);
   const surface = classifySurface(matrix);
-  const cube = makeCube();
-  cube.position.copy(hitPosition);
-  cube.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), surface.normal);
-  cube.position.addScaledVector(surface.normal, 0.085);
-  state.scene.add(cube);
-  state.placed.push(cube);
+  const strawberry = makeStrawberry();
+  strawberry.position.copy(hitPosition);
+  strawberry.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), surface.normal);
+  strawberry.position.addScaledVector(surface.normal, 0.085);
+  state.scene.add(strawberry);
+  state.placed.push(strawberry);
   state.latestSurface = surface.type;
-  status('Cube placed on a ' + surface.type + ' surface. Total: ' + state.placed.length + '.');
+  status('Strawberry placed on a ' + surface.type + ' surface. Total: ' + state.placed.length + '.');
 }
 
 function resetScene() {
@@ -276,7 +274,7 @@ function resetScene() {
     });
   }
   state.placed.length = 0;
-  status('Scene cleared. Scan a surface and place a new cube.');
+  status('Scene cleared. Scan a surface and place a new strawberry.');
 }
 
 function render(_time, frame) {
